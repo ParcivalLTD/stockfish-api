@@ -33,7 +33,7 @@ def get_best_move_api():
         return jsonify({'best_move': best_move})
 
     except Exception as e:
-        # Log the exception
+        # Log the exceptionds
         print(f"Error: {str(e)}")
         return jsonify({'error': 'Internal Server Error'}), 500
 
