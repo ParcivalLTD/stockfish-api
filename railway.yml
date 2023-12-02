@@ -1,0 +1,10 @@
+version: 1
+
+build:
+  image: debian:buster
+
+run:
+  image: debian:buster
+  ports:
+    - 5000:5000
+  cmd: bash -c "apt-get update && apt-get install -y python3 && pip install -r requirements.txt && python app.py"
