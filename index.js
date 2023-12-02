@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const { exec } = require("child_process");
 
 const app = express();
-const port = 80;
+const port = process.env.PORT || 80;
 
 app.use(bodyParser.json());
 
@@ -13,15 +13,16 @@ app.post("/getBestMove", (req, res) => {
   const timeLimit = req.body.timeLimit || 1000; // Default time limit in milliseconds
 
   // Path to the Stockfish executable
-  const stockfishPath = "./stockfish/stockfish-ubuntu-x86-64-modern";
+  const stockfishPath = "./stockfish/stockfish";
 
   // Construct the command to run Stockfish with the given FEN and time limit
   const command = `${stockfishPath} position fen ${fen} go movetime ${timeLimit}`;
 
   // Execute the Stockfish command
-  exec(command, (error, stdout) => {
+  exec(command, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing Stockfish: ${error}`);
+      console.error(`Stockfish stderr: ${stderr}`);
       res.status(500).json({ error: "Internal server error" });
       return;
     }
