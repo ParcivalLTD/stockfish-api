@@ -7,6 +7,8 @@ import chess.engine
 app = Flask(__name__)
 CORS(app)
 
+print("Loading Stockfish Engine...")
+
 stockfish_relative_path = "stockfish/stockfish-ubuntu-x86-64-modern"  # Update with the correct path
 
 stockfish_path = os.path.abspath(os.path.join(os.path.dirname(__file__), stockfish_relative_path))
