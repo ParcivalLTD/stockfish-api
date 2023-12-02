@@ -9,7 +9,9 @@ CORS(app)
 
 def get_best_move(board_fen):
     board = chess.Board(board_fen)
-    stockfish_path = r"C:\path\to\stockfish.exe"  # Update with the correct path
+    stockfish_path_r = os.environ.get('STOCKFISH_PATH', '')
+    stockfish_path = os.path.abspath(os.path.join(os.path.dirname(__file__), stockfish_path_r))
+    print(f"Stockfish Path: {stockfish_path}")
 
     with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
         result = engine.play(board, chess.engine.Limit(time=2.0))
