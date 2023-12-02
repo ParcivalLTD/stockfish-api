@@ -9,7 +9,6 @@ CORS(app)
 
 stockfish_relative_path = "stockfish/stockfish-ubuntu-x86-64-modern"  # Update with the correct path
 
-# Get the absolute path based on the project root
 stockfish_path = os.path.abspath(os.path.join(os.path.dirname(__file__), stockfish_relative_path))
 
 def get_best_move(board_fen):
