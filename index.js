@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const { exec } = require("child_process");
 
 const app = express();
-const port = 3000;
+const port = 80;
 
 app.use(bodyParser.json());
 
@@ -36,6 +36,7 @@ app.post("/getBestMove", (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+const host = "0.0.0.0";
+app.listen(port, host, () => {
+  console.log(`Server is running on http://${host}:${port}`);
 });
