@@ -35,10 +35,11 @@ def get_best_move_api():
         return jsonify({'best_move': best_move})
 
     except Exception as e:
-        # Log the exceptionds
+        # Log the exceptions
         print(f"Error: {str(e)}")
         return jsonify({'error': 'Internal Server Error'}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
-
+    # Read the port number from the environment variable or use 5000 as the default
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
