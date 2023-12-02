@@ -1,10 +1,10 @@
 version: 1
 
 build:
-  image: python:3.11.0-slim-bullseye
+  image: debian:buster
 
 run:
-  image: python:3.11.0-slim-bullseye
+  image: debian:buster
   ports:
     - 5000:5000
-  cmd: bash -c "pip install -r requirements.txt && python app.py"
+  cmd: bash -c "apt-get update && apt-get install -y python3 && pip install -r requirements.txt && python app.py"
