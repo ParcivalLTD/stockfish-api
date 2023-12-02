@@ -1,17 +1,20 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import chess
 import chess.engine
-import os
 
 app = Flask(__name__)
 CORS(app)
 
+# Relative path to stockfish executable from the project root
+stockfish_relative_path = "stockfish/stockfish-ubuntu-x86-64-avx2"  # Update with the correct path
+
+# Get the absolute path based on the project root
+stockfish_path = os.path.abspath(os.path.join(os.path.dirname(__file__), stockfish_relative_path))
+
 def get_best_move(board_fen):
     board = chess.Board(board_fen)
-    stockfish_path_r = os.environ.get('STOCKFISH_PATH', '')
-    stockfish_path = os.path.abspath(os.path.join(os.path.dirname(__file__), stockfish_path_r))
-    print(f"Stockfish Path: {stockfish_path}")
 
     with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
         result = engine.play(board, chess.engine.Limit(time=2.0))
