@@ -1,0 +1,10 @@
+version: 1
+
+build:
+  image: python:3.12
+
+run:
+  image: python:3.12
+  ports:
+    - 5000:5000
+  cmd: bash -c "pip install -r requirements.txt && python app.py"
