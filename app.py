@@ -9,9 +9,7 @@ CORS(app)
 
 def get_best_move(board_fen):
     board = chess.Board(board_fen)
-    absolute_path = os.path.dirname(__file__)
-    relative_path = "stockfish/stockfish-windows-x86-64-avx2.exe"
-    stockfish_path = os.path.join(absolute_path, relative_path)
+    stockfish_path = r"C:\path\to\stockfish.exe"  # Update with the correct path
 
     with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
         result = engine.play(board, chess.engine.Limit(time=2.0))
@@ -21,14 +19,20 @@ def get_best_move(board_fen):
 
 @app.route('/get_best_move', methods=['POST'])
 def get_best_move_api():
-    data = request.get_json()
-    board_fen = data.get('board_fen', '')
+    try:
+        data = request.get_json()
+        board_fen = data.get('board_fen', '')
 
-    if not board_fen:
-        return jsonify({'error': 'Invalid input'})
+        if not board_fen:
+            return jsonify({'error': 'Invalid input'})
 
-    best_move = get_best_move(board_fen)
-    return jsonify({'best_move': best_move})
+        best_move = get_best_move(board_fen)
+        return jsonify({'best_move': best_move})
+
+    except Exception as e:
+        # Log the exception
+        print(f"Error: {str(e)}")
+        return jsonify({'error': 'Internal Server Error'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
