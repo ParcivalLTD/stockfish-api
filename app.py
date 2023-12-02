@@ -7,7 +7,6 @@ import chess.engine
 app = Flask(__name__)
 CORS(app)
 
-# Relative path to stockfish executable from the project root
 stockfish_relative_path = "stockfish/stockfish-ubuntu-x86-64-modern"  # Update with the correct path
 
 # Get the absolute path based on the project root
