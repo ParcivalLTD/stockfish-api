@@ -1,4 +1,5 @@
 import os
+import traceback
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import chess
@@ -35,8 +36,8 @@ def get_best_move_api():
         return jsonify({'best_move': best_move})
 
     except Exception as e:
-        # Log the exception
-        print(f"Error: {str(e)}")
+        # Log the exception with the complete stack trace
+        traceback.print_exc()
         return jsonify({'error': 'Internal Server Error'}), 500
 
 if __name__ == '__main__':
